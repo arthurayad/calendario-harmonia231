@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory, session, redirect, url_for
 from flask_cors import CORS
 import os
+import json
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from functools import wraps
@@ -27,7 +28,6 @@ try:
     db = client['calendario_db']
     eventos_col = db['eventos']
     config_col = db['config']
-    # Testar conexão
     client.admin.command('ping')
     logger.info("Conectado ao MongoDB com sucesso!")
 except Exception as e:
@@ -74,8 +74,34 @@ def get_site_config():
         logger.error(f"Erro ao buscar config: {e}")
         return default_config
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+def migrar_dados_se_vazio():
+    """Migra dados do data.json para o MongoDB se o banco estiver vazio."""
+    if db is not None:
+        try:
+            # Verifica se já existem eventos no banco
+            if eventos_col.count_documents({}) == 0:
+                logger.info("Banco vazio detectado. Iniciando migração do data.json...")
+                if os.path.exists('data.json'):
+                    with open('data.json', 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                    
+                    # Migra configurações
+                    if 'config' in data and data['config']:
+                        config_col.replace_one({}, data['config'], upsert=True)
+                        logger.info("Configurações migradas.")
+                    
+                    # Migra eventos
+                    if 'eventos' in data and data['eventos']:
+                        eventos_col.insert_many(data['eventos'])
+                        logger.info(f"{len(data['eventos'])} eventos migrados.")
+                    
+                    logger.info("Migração automática concluída com sucesso!")
+                else:
+                    logger.warning("Arquivo data.json não encontrado para migração.")
+            else:
+                logger.info("Banco de dados já contém dados. Pulando migração.")
+        except Exception as e:
+            logger.error(f"Erro na migração automática: {e}")
 
 # Rotas Frontend
 @app.route('/')
@@ -216,5 +242,8 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
+    # Executa a migração automática antes de iniciar o servidor
+    migrar_dados_se_vazio()
+    
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
