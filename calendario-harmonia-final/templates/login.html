@@ -5,128 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Admin</title>
     <style>
-        :root {
-            --bg-color: #1a1a1a;
-            --text-color: #e0e0e0;
-            --card-bg: #2a2a2a;
-            --accent-color: #4a9b8e;
-            --border-color: #444;
-        }
-
-        [data-theme="light"] {
-            --bg-color: #f5f5f5;
-            --text-color: #333;
-            --card-bg: #ffffff;
-            --border-color: #ddd;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: white;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
             margin: 0;
-            transition: all 0.3s ease;
         }
-
         .login-card {
-            background-color: var(--card-bg);
-            padding: 40px;
+            background-color: #1e1e1e;
+            padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
             width: 100%;
-            max-width: 400px;
+            max-width: 350px;
             text-align: center;
-            border: 1px solid var(--border-color);
+            border: 1px solid #333;
         }
-
-        h1 {
-            margin-bottom: 24px;
-            font-size: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
+        h2 { color: #4a9b8e; margin-bottom: 1.5rem; }
         input[type="password"] {
             width: 100%;
             padding: 12px;
-            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
             border-radius: 6px;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-size: 1rem;
+            border: 1px solid #444;
+            background-color: #2d2d2d;
+            color: white;
             box-sizing: border-box;
         }
-
-        .btn {
+        button {
             width: 100%;
             padding: 12px;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
             border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
+            border: none;
+            background-color: #4a9b8e;
+            color: white;
+            font-weight: bold;
             cursor: pointer;
-            transition: filter 0.3s;
+            transition: background 0.3s;
         }
-
-        .btn:hover {
-            filter: brightness(1.1);
-        }
-
-        .error {
-            color: #e74c3c;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-
-        .back-link {
-            display: block;
-            margin-top: 20px;
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        .back-link:hover {
-            opacity: 1;
-        }
+        button:hover { background-color: #3d8075; }
+        .error { color: #e74c3c; margin-bottom: 1rem; font-size: 0.9rem; }
+        .back-link { display: block; margin-top: 1rem; color: #888; text-decoration: none; font-size: 0.8rem; }
+        .back-link:hover { color: #4a9b8e; }
     </style>
 </head>
 <body>
     <div class="login-card">
-        <h1>Acesso Restrito</h1>
+        <h2>Acesso Admin</h2>
         {% if error %}
             <div class="error">{{ error }}</div>
         {% endif %}
-        <form method="POST">
-            <div class="form-group">
-                <label for="password">Senha do Painel:</label>
-                <input type="password" id="password" name="password" required autofocus>
-            </div>
-            <button type="submit" class="btn">Entrar</button>
+        <form method="POST" action="/login">
+            <input type="password" name="password" placeholder="Senha de Acesso" required autofocus>
+            <button type="submit">Entrar no Painel</button>
         </form>
         <a href="/" class="back-link">← Voltar para o Calendário</a>
     </div>
-
-    <script>
-        // Aplicar tema atual
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-    </script>
 </body>
 </html>
