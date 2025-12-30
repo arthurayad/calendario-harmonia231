@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário Gestão 2026/A</title>
+    <link rel="icon" type="image/png" href="/static/logo.jfif">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <img src="/static/logo.jfif" alt="Logo" class="logo">
+            <h1 class="title">Calendário <span class="accent">Gestão 2026/A</span></h1>
+            <div class="header-actions">
+                <a href="/admin" class="admin-btn" title="Painel de Administração">⚙️ Admin</a>
+                <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema">
+                    <span class="icon-sun">☀️</span>
+                    <span class="icon-moon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <section class="filter-section">
+                <h3>Filtrar por Categoria:</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="Todas">Todas</button>
+                    <button class="filter-btn" data-filter="Estadual">Estadual</button>
+                    <button class="filter-btn" data-filter="Ritualística">Ritualística</button>
+                    <button class="filter-btn" data-filter="Entretenimento">Entretenimento</button>
+                    <button class="filter-btn" data-filter="Pública">Pública</button>
+                    <button class="filter-btn" data-filter="Feriado">Feriado</button>
+                    
+                </div>
+            </section>
+
+            <section class="summary-horizontal">
+                <h3>Legenda:</h3>
+                <div class="summary-grid">
+                    <div class="summary-item"><span class="color-box estadual"></span> Estadual</div>
+                    <div class="summary-item"><span class="color-box ritualistica"></span> Ritualística</div>
+                    <div class="summary-item"><span class="color-box entretenimento"></span> Entretenimento</div>
+                    <div class="summary-item"><span class="color-box publica"></span> Pública</div>
+                    <div class="summary-item"><span class="color-box feriado"></span> Feriado</div>
+                    
+                </div>
+            </section>
+
+            <main class="main-layout">
+                <aside class="left-sidebar">
+                    <div id="eventos-container">
+                        <!-- Eventos serão carregados aqui -->
+                    </div>
+                </aside>
+
+                <div id="calendars-container" class="right-content">
+                    <!-- Calendários serão carregados aqui -->
+                </div>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="contact-info">
+                <p><strong>Local:</strong> <span id="local-info">Rua José Pereira Liberato, 1178</span></p>
+                <p><strong>Contato:</strong> <span id="contact-info">(47) 99286-0936 (Arthur Ayad)</span></p>
+            </div>
+            <p style="margin-top: 20px;">&copy; 2026 Calendário Gestão - Todos os direitos reservados</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/calendar.js"></script>
+</body>
+</html>

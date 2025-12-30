@@ -1,0 +1,193 @@
+{
+  "config": {
+    "title": "Calendário Gestão 2026/A",
+    "local": "Rua José Siqueira, 1178",
+    "contact": "(47) 99286-0936 (Arthur Ayad)",
+    "primaryColor": "#4a9b8e",
+    "colors": {
+      "estadual": "#1e3a52",
+      "ritualistica": "#4a7c59",
+      "entretenimento": "#d4a574",
+      "publica": "#4a9b8e",
+      "feriado": "#e74c3c"
+    }
+  },
+  "eventos": [
+    {
+      "titulo": "Planejamento da Gestão",
+      "data": "2026-02-07",
+      "hora": "10h",
+      "local": "Rua José Pereira Liberato, 1178",
+      "categoria": "Ritualística",
+      "id": 3
+    },
+    {
+      "titulo": "Proficiência G1",
+      "data": "2026-02-21",
+      "hora": "10h",
+      "local": "Rua José Pereira Liberato, 1178",
+      "categoria": "Ritualística",
+      "id": 4
+    },
+    {
+      "id": 5,
+      "data": "2026-02-28",
+      "titulo": "Ano Demolay",
+      "categoria": "Ritualística",
+      "hora": "10h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "id": 6,
+      "data": "2026-03-07",
+      "titulo": "Dia Devocinal",
+      "categoria": "Ritualística",
+      "hora": "10h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "id": 7,
+      "data": "2026-03-14",
+      "titulo": "Dia em Memória a Jaques DeMolay",
+      "categoria": "Ritualística",
+      "hora": "10h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "id": 8,
+      "data": "2026-03-28",
+      "titulo": "Aprendendo Ritualística",
+      "categoria": "Ritualística",
+      "hora": "10h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "id": 9,
+      "data": "2026-04-11",
+      "titulo": "Confraternização",
+      "categoria": "Entretenimento",
+      "hora": "19h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "id": 10,
+      "data": "2026-04-18",
+      "titulo": "Cerimônia da Luz",
+      "categoria": "Pública",
+      "hora": "16h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "id": 11,
+      "data": "2026-04-25",
+      "titulo": "Iniciação ao Grau Demolay",
+      "categoria": "Ritualística",
+      "hora": "16h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "titulo": "Escrutínio de Iniciação",
+      "data": "2026-05-09",
+      "hora": "10h",
+      "local": "Rua José Pereira Liberato, 1178",
+      "categoria": "Pública",
+      "id": 12
+    },
+    {
+      "id": 13,
+      "data": "2026-05-16",
+      "titulo": "Palestra (a definir)",
+      "categoria": "Ritualística",
+      "hora": "10h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "id": 14,
+      "data": "2026-05-23",
+      "titulo": "Dia das Mães",
+      "categoria": "Pública",
+      "hora": "16h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "id": 15,
+      "data": "2026-05-30",
+      "titulo": "Iniciação à Ordem Demolay",
+      "categoria": "Ritualística",
+      "hora": "16h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "id": 16,
+      "data": "2026-06-06",
+      "titulo": "Palestra (a definir)",
+      "categoria": "Ritualística",
+      "hora": "10h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "id": 17,
+      "data": "2026-06-13",
+      "titulo": "Arrecadação de Fundos",
+      "categoria": "Pública",
+      "hora": "12h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "id": 18,
+      "data": "2026-06-20",
+      "titulo": "Eleição Gestão 2026/B",
+      "categoria": "Ritualística",
+      "hora": "10h",
+      "local": "Rua José Pereira Liberato, 1178"
+    },
+    {
+      "titulo": "CONAMESCO",
+      "data": "2026-01-24",
+      "hora": "",
+      "local": "Recanto Champagnat",
+      "categoria": "Estadual",
+      "id": 19
+    },
+    {
+      "titulo": "Instalação dos Oficiais",
+      "data": "2026-01-31",
+      "hora": "10h",
+      "local": "Rua José Pereira Liberato, 1178",
+      "categoria": "Ritualística",
+      "id": 20
+    },
+    {
+      "titulo": "Ano Novo",
+      "data": "2026-01-01",
+      "hora": "",
+      "local": "",
+      "categoria": "Feriado",
+      "id": 21
+    },
+    {
+      "titulo": "Carnaval",
+      "data": "2026-02-14",
+      "hora": "",
+      "local": "",
+      "categoria": "Feriado",
+      "id": 22
+    },
+    {
+      "titulo": "Sexta-Feira Santa",
+      "data": "2026-04-03",
+      "hora": "",
+      "local": "",
+      "categoria": "Feriado",
+      "id": 23
+    },
+    {
+      "titulo": "Dia do Trabalhador",
+      "data": "2026-05-01",
+      "hora": "",
+      "local": "",
+      "categoria": "Feriado",
+      "id": 24
+    }
+  ]
+}

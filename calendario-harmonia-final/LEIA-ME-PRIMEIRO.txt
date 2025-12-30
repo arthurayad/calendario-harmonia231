@@ -1,0 +1,66 @@
+╔════════════════════════════════════════════════════════════╗
+║   CALENDÁRIO GESTÃO 2026/A - INSTRUÇÕES DE EXECUÇÃO       ║
+╚════════════════════════════════════════════════════════════╝
+
+OPÇÃO 1 - MAIS FÁCIL (Recomendado):
+═══════════════════════════════════
+
+1. Clique duas vezes em: EXECUTAR.bat
+
+Pronto! O servidor vai iniciar automaticamente.
+Acesse em seu navegador: http://localhost:5000
+
+
+OPÇÃO 2 - Alternativa:
+═════════════════════
+
+1. Clique duas vezes em: iniciar.py
+
+Pronto! O servidor vai iniciar e abrir o navegador automaticamente.
+
+
+ACESSAR O SITE:
+═══════════════
+
+Site Principal: http://localhost:5000
+Painel Admin:   http://localhost:5000/admin
+
+
+PARAR O SERVIDOR:
+═════════════════
+
+Pressione CTRL+C na janela do terminal
+
+
+REQUISITO:
+══════════
+
+Você precisa ter Python instalado no seu computador.
+Baixe em: https://www.python.org/downloads/
+
+IMPORTANTE: Durante a instalação do Python, marque a opção:
+"Add Python to PATH"
+
+
+PROBLEMAS?
+══════════
+
+Se não funcionar:
+1. Instale Python em https://www.python.org/downloads/
+2. Certifique-se de marcar "Add Python to PATH"
+3. Reinicie o computador
+4. Tente novamente
+
+
+DADOS:
+══════
+
+Os dados do calendário são salvos em: data.json
+Você pode editar manualmente ou usar o painel de admin.
+
+
+═══════════════════════════════════════════════════════════════
+
+Dúvidas? Consulte o arquivo README.md
+
+═══════════════════════════════════════════════════════════════

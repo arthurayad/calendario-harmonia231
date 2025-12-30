@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Calendário Gestão 2026/A</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Admin</h1>
+                <a href="/" class="back-link">← Voltar</a>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-section="config">⚙️ Configurações</button>
+                <button class="nav-btn" data-section="eventos">📅 Eventos</button>
+                <button class="nav-btn" data-section="cores">🎨 Cores</button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Configurações -->
+            <section id="config" class="admin-section active">
+                <h2>Configurações Gerais</h2>
+                
+                <div class="form-group">
+                    <label for="title">Título do Site:</label>
+                    <input type="text" id="title" placeholder="Calendário Gestão 2026/A">
+                </div>
+
+                <div class="form-group">
+                    <label for="local">Local das Reuniões:</label>
+                    <input type="text" id="local" placeholder="Rua José Pereira Liberato, 1178">
+                </div>
+
+                <div class="form-group">
+                    <label for="contact">Contato:</label>
+                    <input type="text" id="contact" placeholder="(47) 99286-0936 (Arthur Ayad)">
+                </div>
+
+                <div class="form-group">
+                    <label for="logo">Logo (URL ou upload):</label>
+                    <div class="logo-upload">
+                        <input type="file" id="logo-file" accept="image/*">
+                        <button id="upload-logo-btn" class="btn btn-secondary">Upload Logo</button>
+                    </div>
+                    <div id="logo-preview" class="logo-preview"></div>
+                </div>
+
+                <button id="save-config-btn" class="btn btn-primary">Salvar Configurações</button>
+                <div id="config-message" class="message"></div>
+            </section>
+
+            <!-- Eventos -->
+            <section id="eventos" class="admin-section">
+                <h2>Gerenciar Eventos</h2>
+
+                <div class="eventos-toolbar">
+                    <button id="add-evento-btn" class="btn btn-primary">+ Novo Evento</button>
+                </div>
+
+                <div id="eventos-list" class="eventos-list"></div>
+
+                <!-- Modal para editar/criar evento -->
+                <div id="evento-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h3 id="modal-title">Novo Evento</h3>
+
+                        <div class="form-group">
+                            <label for="evento-titulo">Título:</label>
+                            <input type="text" id="evento-titulo" placeholder="Título do evento">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="evento-data">Data:</label>
+                            <input type="date" id="evento-data">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="evento-hora">Hora:</label>
+                            <input type="text" id="evento-hora" placeholder="10h, 16h, 19h, etc.">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="evento-local">Local:</label>
+                            <input type="text" id="evento-local" placeholder="Local do evento">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="evento-categoria">Categoria:</label>
+                            <select id="evento-categoria">
+                                <option value="Estadual">Estadual</option>
+                                <option value="Ritualística">Ritualística</option>
+                                <option value="Entretenimento">Entretenimento</option>
+                                <option value="Pública">Pública</option>
+                                <option value="Feriado">Feriado</option>
+                                
+                            </select>
+                        </div>
+
+                        <div class="modal-buttons">
+                            <button id="save-evento-btn" class="btn btn-primary">Salvar</button>
+                            <button id="cancel-evento-btn" class="btn btn-secondary">Cancelar</button>
+                            <button id="delete-evento-btn" class="btn btn-danger" style="display: none;">Deletar</button>
+                        </div>
+
+                        <div id="evento-message" class="message"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cores -->
+            <section id="cores" class="admin-section">
+                <h2>Personalizar Cores</h2>
+
+                <div class="color-group" style="margin-bottom: 30px; padding: 20px; background-color: #f0f0f0; border-radius: 8px;">
+                    <label for="color-primary" style="font-weight: bold; font-size: 16px;">Cor Principal do Site:</label>
+                    <input type="color" id="color-primary" value="#52a29b" style="width: 100px; height: 50px; cursor: pointer; margin-top: 10px;">
+                    <p style="margin-top: 10px; font-size: 12px; color: #666;">Esta cor sera aplicada em todos os elementos principais do site</p>
+                </div>
+
+                <div class="colors-grid">
+                    <div class="color-group">
+                        <label for="color-estadual">Estadual:</label>
+                        <input type="color" id="color-estadual" value="#1e3a52">
+                    </div>
+
+                    <div class="color-group">
+                        <label for="color-ritualistica">Ritualística:</label>
+                        <input type="color" id="color-ritualistica" value="#4a7c59">
+                    </div>
+
+                    <div class="color-group">
+                        <label for="color-entretenimento">Entretenimento:</label>
+                        <input type="color" id="color-entretenimento" value="#d4a574">
+                    </div>
+
+                    <div class="color-group">
+                        <label for="color-publica">Pública:</label>
+                        <input type="color" id="color-publica" value="#2d7a6e">
+                    </div>
+
+                    <div class="color-group">
+                        <label for="color-feriado">Feriado:</label>
+                        <input type="color" id="color-feriado" value="#e74c3c">
+                    </div>
+
+                    
+                </div>
+
+                <button id="save-colors-btn" class="btn btn-primary">Salvar Cores</button>
+                <div id="colors-message" class="message"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>
