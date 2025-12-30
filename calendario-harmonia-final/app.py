@@ -5,10 +5,10 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 from functools import wraps
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 import logging
+import certifi
 
-# Configuração de Logs para facilitar o diagnóstico no Render
+# Configuração de Logs para o Render
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -17,11 +17,13 @@ app.secret_key = os.environ.get('SECRET_KEY', 'harmonia_secret_key_2026')
 CORS(app)
 
 # Configurações de Banco de Dados (MongoDB Atlas)
-MONGO_URI = os.environ.get('MONGO_URI', 'mongodb+srv://Harmonia231:harmonia231@cluster0.jdonuj2.mongodb.net/?appName=Cluster0')
+MONGO_URI = "mongodb+srv://Harmonia231:harmonia231@cluster0.jdonuj2.mongodb.net/?appName=Cluster0"
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', '231harmonia')
 
+# Conexão com o MongoDB usando Certifi para evitar erro de SSL
+ca = certifi.where()
 try:
-    # Adicionado timeout para não travar o app se o banco estiver fora
-    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000, tlsCAFile=ca)
     db = client['calendario_db']
     eventos_col = db['eventos']
     config_col = db['config']
@@ -35,13 +37,11 @@ except Exception as e:
 # Configurações de Upload
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'jfif'}
-ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', '231harmonia')
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 def login_required(f):
     @wraps(f)
@@ -66,15 +66,10 @@ def get_site_config():
             "feriado": "#e74c3c"
         }
     }
-    
-    if db is None:
-        return default_config
-        
+    if db is None: return default_config
     try:
         config = config_col.find_one({}, {'_id': 0})
-        if not config:
-            return default_config
-        return config
+        return config if config else default_config
     except Exception as e:
         logger.error(f"Erro ao buscar config: {e}")
         return default_config
@@ -125,7 +120,6 @@ def get_data():
 def get_config():
     return jsonify(get_site_config())
 
-# ROTA RESTAURADA: Necessária para compatibilidade com algumas chamadas do frontend
 @app.route('/api/eventos', methods=['GET'])
 def get_eventos():
     try:
@@ -141,11 +135,9 @@ def get_eventos():
 @app.route('/api/config', methods=['POST'])
 @login_required
 def update_config():
-    if db is None:
-        return jsonify({"status": "error", "message": "Banco de dados indisponível"}), 503
+    if db is None: return jsonify({"status": "error", "message": "Banco indisponível"}), 503
     try:
         config = request.json
-        # Garante que estamos substituindo o documento de configuração
         config_col.replace_one({}, config, upsert=True)
         return jsonify({"status": "success", "message": "Configuração atualizada"})
     except Exception as e:
@@ -156,21 +148,16 @@ def update_config():
 @app.route('/api/eventos', methods=['POST'])
 @login_required
 def create_evento():
-    if db is None:
-        return jsonify({"status": "error", "message": "Banco de dados indisponível"}), 503
+    if db is None: return jsonify({"status": "error", "message": "Banco indisponível"}), 503
     try:
         evento = request.json
-        # Lógica de ID mais robusta
         last_evento = eventos_col.find_one(sort=[("id", -1)])
         if last_evento and 'id' in last_evento:
             new_id = int(last_evento['id']) + 1
         else:
-            # Se não houver eventos ou o último não tiver ID, conta o total
             new_id = eventos_col.count_documents({}) + 1
-            
         evento['id'] = new_id
         eventos_col.insert_one(evento)
-        
         if '_id' in evento: del evento['_id']
         return jsonify({"status": "success", "evento": evento})
     except Exception as e:
@@ -181,13 +168,11 @@ def create_evento():
 @app.route('/api/eventos/<int:evento_id>', methods=['PUT'])
 @login_required
 def update_evento(evento_id):
-    if db is None:
-        return jsonify({"status": "error", "message": "Banco de dados indisponível"}), 503
+    if db is None: return jsonify({"status": "error", "message": "Banco indisponível"}), 503
     try:
         evento_data = request.json
         evento_data['id'] = evento_id
         result = eventos_col.replace_one({"id": evento_id}, evento_data)
-        
         if result.matched_count > 0:
             if '_id' in evento_data: del evento_data['_id']
             return jsonify({"status": "success", "evento": evento_data})
@@ -200,8 +185,7 @@ def update_evento(evento_id):
 @app.route('/api/eventos/<int:evento_id>', methods=['DELETE'])
 @login_required
 def delete_evento(evento_id):
-    if db is None:
-        return jsonify({"status": "error", "message": "Banco de dados indisponível"}), 503
+    if db is None: return jsonify({"status": "error", "message": "Banco indisponível"}), 503
     try:
         eventos_col.delete_one({"id": evento_id})
         return jsonify({"status": "success", "message": "Evento deletado"})
@@ -214,11 +198,10 @@ def delete_evento(evento_id):
 @login_required
 def upload_file():
     if 'file' not in request.files:
-        return jsonify({"status": "error", "message": "Nenhum arquivo fornecido"}), 400
+        return jsonify({"status": "error", "message": "Nenhum arquivo"}), 400
     file = request.files['file']
     if file.filename == '' or not allowed_file(file.filename):
         return jsonify({"status": "error", "message": "Arquivo inválido"}), 400
-    
     try:
         filename = secure_filename(f"{datetime.now().timestamp()}_{file.filename}")
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -233,6 +216,5 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
-    # No Render, a porta é definida pela variável de ambiente PORT
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
